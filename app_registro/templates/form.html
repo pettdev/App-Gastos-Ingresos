@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block pageBase %}{# Comentario Jinja #}
+    <h2>En esta sección podrás {{ typeAction }} un registro de ingresos y gastos</h2>
+    
+    <form>
+        <label for="fecha">Fecha: </label>
+        <input type="date" name="fecha">
+
+        <br>
+
+        <label for="concepto">Concepto: </label>
+        <input type="text" name="concepto" placeholder="Ingresar concepto">
+
+        <br>
+
+        <label for="cantidad">Cantidad: </label>
+        <input type="number" placeholder="Ingresar cantidad">
+
+        <br>
+
+        <button onclick="alert('Registro agregado exitosamente.')">{{ typeButton }}</button>
+    </form>
+{% endblock %}
+    

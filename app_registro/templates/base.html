@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresos-Gastos: {{ pageTitle }} {# Lo de la izquierda es para recibir una variable que aplique el nombre de la pestaña #}</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/new">Nuevo registro</a>
+        <a href="/update">Actualizar registro</a>
+        <a href="/delete">Eliminar registro</a>
+    </nav>
+
+    <h1>Aplicación de Ingresos-Gastos</h1>
+
+    {% block pageBase %}{# Comentario Jinja #}
+    {% endblock %}
+
+</body>
+</html>

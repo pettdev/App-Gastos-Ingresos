@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block pageBase %}
+    <p>Registros disponibles:</p>
+    <section>
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Concepto</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for key in lista %}
+                <tr>
+                    <td>{{key.Fecha}}</td>
+                    <td>{{key.Concepto}}</td>
+                    <td>{{key.Cantidad}} €</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </section>
+{% endblock %}
