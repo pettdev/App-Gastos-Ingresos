@@ -1,31 +1,36 @@
 from app_registro import app
 from flask import render_template
+from datetime import datetime, date
+import requests
 
 @app.route('/')
 def index():
 
-    datos = [
-        {
-            'Fecha': '18/12/2022',
-            'Concepto': 'Regalo de Reyes',
-            'Cantidad': '-275.50'
-        },
+    import csv
 
-        {   'Fecha': '19/12/2022',
-            'Concepto': 'Cobro de trabajo',
-            'Cantidad': '1200.00'
-        },
+    datos = []
+    # 'Seleccionamos' el archivo a leer
+    fichero = open('data/movimientos.txt', 'r')
+    # Crear variable CSV que formatee los datos de movimientos.txt
+    csvreader = csv.reader(fichero, delimiter=",", quotechar='"')
+    # Extraer los datos formateados por CSV
+    for registro in csvreader:
+        #Guardarlos en una variable con el nuevo formato
+        datos.append(registro)
 
-        {   'Fecha': '18/12/2022',
-            'Concepto': 'Ropa de Navidad',
-            'Cantidad': '-355.50'
-        }
-    ]
+    fichero.close()
 
     return render_template('index.html', pageTitle='Página Principal', lista=datos)
 
-@app.route('/new')
+# Se agrega GET y POST para que Flask sepa que esta ruta puede recibir el protocolo de comunicación de unos de éstos métodos.
+@app.route('/new', methods=["GET", "POST"])
 def new():
+    if requests.method == "GET": # Puede ser POST o GET
+        return render_template("new_register.html", pageTitle="Nuevo registro", typeAction="Agregar", typeButon="Guardar", dataForm={})
+    else:
+        # El modo 'a' es para añadir datos, significa 'append'
+        fichero = open('data/movimientos.csv', 'a', newline="")
+
     return render_template('new_register.html', pageTitle='Nuevo registro', typeButton='Agregar', typeAction='agregar')
 
 @app.route('/base')

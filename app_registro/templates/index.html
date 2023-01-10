@@ -13,11 +13,11 @@
             </thead>
             <tbody>
 
-                {% for key in lista %}
+                {% for registro in lista %}
                 <tr>
-                    <td>{{key.Fecha}}</td>
-                    <td>{{key.Concepto}}</td>
-                    <td>{{key.Cantidad}} €</td>
+                    <td>{{ registro[0] }}</td>
+                    <td>{{ registro[1] }}</td>
+                    <td>{{ registro[2] }}€</td>
                 </tr>
                 {% endfor %}
 

@@ -17,27 +17,32 @@ Flask https://flask.palletsprojects.com/en/2.2.x/
 
     En macOS/Linux:
 
-        export FLASK_APP=hello.py
+        export FLASK_APP=main.py
 
     En Microsoft Windows:
 
-        set FLASK_APP=hello.py
+        set FLASK_APP=main.py
 
 - Para ejecutar el servidor, usar el comando siguiente:
 
-        flask --app hello run
+        flask --app main run
 
 
 ## Comando para actualizar el servidor con cambios de código en tiempo real
 
-    flask --app hello --debug run
+    flask --app main --debug run
+
+## -  Alternativamente, para no tener que ejecutar cada vez el comando anterior, crea un archivo .env (oculto), con los siguientes datos:
+
+        FLASK_APP=main.py
+        DEBUG=True
 
 ## Comando para ejecutar el servidor en un puerto 
 
 Utilizarse en caso de que el puerto 5000 no esté disponible
 
-    flask --app hello run -p 5001
+    flask --app main run -p 5001
 
 ## Comando para lanzar en modo debug y con puerto específico
 
-    flask --app hello --debug -p 5001
+    flask --app main --debug -p 5001
