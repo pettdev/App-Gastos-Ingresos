@@ -1,50 +1,59 @@
 from app_registro import app
-from flask import render_template
-from datetime import datetime, date
-import requests
+from flask import render_template,request,redirect
+import csv
+from datetime import datetime,date
 
-@app.route('/')
+@app.route("/")
 def index():
+    #llama al archivo
+    fichero = open("data/movimientos.csv","r")
+    #accede a cada registro de arhivo y lo formatea
+    csvReader = csv.reader(fichero,delimiter=",",quotechar='"')
+    #creo un array datos vacio para cargar los registros del archivo
+    datos=[]
+    #recorrer el objeto csvReader y cargar cada registro al array datos
+    for item in csvReader:
+        datos.append(item)
+    return render_template("index.html",pageTitle="Listas",lista=datos)
 
-    import csv
 
-    datos = []
-    # 'Seleccionamos' el archivo a leer
-    fichero = open('data/movimientos.txt', 'r')
-    # Crear variable CSV que formatee los datos de movimientos.txt
-    csvreader = csv.reader(fichero, delimiter=",", quotechar='"')
-    # Extraer los datos formateados por CSV
-    for registro in csvreader:
-        #Guardarlos en una variable con el nuevo formato
-        datos.append(registro)
-
-    fichero.close()
-
-    return render_template('index.html', pageTitle='Página Principal', lista=datos)
-
-# Se agrega GET y POST para que Flask sepa que esta ruta puede recibir el protocolo de comunicación de unos de éstos métodos.
-@app.route('/new', methods=["GET", "POST"])
-def new():
-    if requests.method == "GET": # Puede ser POST o GET
-        return render_template("new_register.html", pageTitle="Nuevo registro", typeAction="Agregar", typeButon="Guardar", dataForm={})
+@app.route("/new",methods=["GET","POST"])
+def create():
+    if request.method == "GET":#esto puede ser POST o GET
+        return render_template("new.html",pageTitle="Alta",typeAction="Alta",typeButon="Guardar")   
     else:
-        # El modo 'a' es para añadir datos, significa 'append'
-        fichero = open('data/movimientos.csv', 'a', newline="")
+        #acceder al archivo y configurarlo para cargar un nuevo registro
+        mifichero =  open('data/movimientos.csv','a',newline='')
+        #llamamos al metodo writer de escritura y cargamos el formeto para csv
+        lectura= csv.writer(mifichero, delimiter=',',quotechar='"')
+        
+        #realizar el control de fecha
+        date_object = datetime.strptime(request.form['date'], '%Y-%M-%d').date()
 
-    return render_template('new_register.html', pageTitle='Nuevo registro', typeButton='Agregar', typeAction='agregar')
+        #-dar fomato final de fechas
+        #-validar que el request.form.date <= la fecha de hoy
+        #-si date > hoy devolver un formulario vacio get de new.html
 
-@app.route('/base')
-def base():
-    return render_template('base.html', pageTitle='Página Base')
 
-@app.route('/update')
-def update():
-    return render_template('update_register.html', pageTitle='Actualizar registro', typeButton='Modificar', typeAction='modificar')
+        if date_object < date.today():
+            print("fecha correcta")
+        else:
+            print("fecha incorrecta")
+        
+        #registramos los datos recibidos desde el formulario con request.form y lo añadimos con el metodo writerrow
+        lectura.writerow([request.form['date'],request.form['concept'],request.form['quantity']])    
 
-@app.route('/delete')
-def delete():
-    return render_template('delete_register.html', pageTitle='Eliminar registro', typeButton='Eliminar')
+        mifichero.close()
 
-@app.route('/form')
-def form():
-    return render_template('form.html', pageTitle='Formulario base')
+    return redirect('/')
+
+
+        
+   
+@app.route("/update")
+def edit():
+    return render_template("update.html",pageTitle="Modificación",typeAction="Modificación",typeButon="Editar") 
+
+@app.route("/delete")
+def remove():
+    return render_template("delete.html",pageTitle="Eliminar")

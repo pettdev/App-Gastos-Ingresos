@@ -1,8 +1,10 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}        
 
 {% block pageBase %}
-    <p>Registros disponibles:</p>
-    <section>
+        <h1> Esto seria la lista de Ingresos y Gastos</h1>
+        <p> Un simulacro de contabilidad</p>
+
+         
         <table>
             <thead>
                 <tr>
@@ -12,16 +14,16 @@
                 </tr>
             </thead>
             <tbody>
-
-                {% for registro in lista %}
+                {% for item in lista %}{# se repetira toda estructura dentro #}
                 <tr>
-                    <td>{{ registro[0] }}</td>
-                    <td>{{ registro[1] }}</td>
-                    <td>{{ registro[2] }}€</td>
+                    <td>{{item[0]}}</td>
+                    <td>{{item[1]}}</td>
+                    <td>€{{item[2]}}</td>
                 </tr>
                 {% endfor %}
 
             </tbody>
-        </table>
-    </section>
-{% endblock %}
+        </table> 
+
+        <a href="/new">Nuevo</a>
+{% endblock %}        

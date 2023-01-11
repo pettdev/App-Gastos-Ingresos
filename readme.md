@@ -1,48 +1,50 @@
 # Aplicación Web Ingresos-Gastos
 
-Programa hecho en Python con el framework Flask, App Ingresos-Gastos
+- Programa hecho en python con el framework Flask, App Ingresos Gastos
 
+## En su entorno de python ejecutar el comando
 
-## En su entorno de Python, ejecutar el siguiente comando:
+```
+pip install -r requirements.txt
+```
+las libreria utilizada flask https://flask.palletsprojects.com/en/2.2.x/
 
-    pip install -r requirements.txt
+## Ejecucion del programa
+- inicializar el servidor de flask, agregando estos comandos a la terminal:
 
+- en mac:
+```
+export FLASK_APP=hello.py
+```
+- en windows:
+```
+set FLASK_APP=hello.py
+```
 
-Flask https://flask.palletsprojects.com/en/2.2.x/
+## Otra alternativa seria crear el archivo oculto .env y dentro agregar las siguientes lineas
+```
+FLASK_APP=main.py
+FLASK_DEBUG=true
+```
+## Comando para ejecutar el servidor:
+```
+flask --app hello run
+```
 
+## Comando para actualizar el servidor con cambios de codigo en tiempo real
 
-## Ejecución del programa
+```
+flask --app hello --debug run
+```
 
-- Inicializar el servidor de Flask, ejecutando los siguientes comandos:
+## Comando especial para lanzar el servidor en un puerto diferente
+- Esto se utiliza en el caso que el puerto 5000 este ocupado
 
-    En macOS/Linux:
+```
+flask --app hello run -p 5001
+```
 
-        export FLASK_APP=main.py
-
-    En Microsoft Windows:
-
-        set FLASK_APP=main.py
-
-- Para ejecutar el servidor, usar el comando siguiente:
-
-        flask --app main run
-
-
-## Comando para actualizar el servidor con cambios de código en tiempo real
-
-    flask --app main --debug run
-
-## -  Alternativamente, para no tener que ejecutar cada vez el comando anterior, crea un archivo .env (oculto), con los siguientes datos:
-
-        FLASK_APP=main.py
-        DEBUG=True
-
-## Comando para ejecutar el servidor en un puerto 
-
-Utilizarse en caso de que el puerto 5000 no esté disponible
-
-    flask --app main run -p 5001
-
-## Comando para lanzar en modo debug y con puerto específico
-
-    flask --app main --debug -p 5001
+## Comando para lanzar en modo debug y con puerto cambiado
+```
+flask --app hello --debug run -p 5001
+```
